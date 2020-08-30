@@ -13,7 +13,6 @@ from jproperties import Properties
 
 
 class SimpleEmail:
-
     __mail_port = ''
     __mail_host_name = ''
     __mail_account_user_mail = ''
@@ -38,12 +37,17 @@ class SimpleEmail:
         self.__mail_template_template = properties.get('push.messaging.html.template').data
 
     def send_simple_email(self):
-        mail_server = SMTP(self.__mail_host_name, self.__mail_port)
-        mail_server.ehlo()
-        mail_server.starttls()
-        mail_server.login(self.__mail_account_user_mail, self.__mail_account_password)
-        mail_server.sendmail(self.__mail_account_user_mail, self.get_toaddrs(), self.get_mime_multipart())
-        mail_server.quit()
+        try:
+            print("sending .....")
+            mail_server = SMTP(self.__mail_host_name, self.__mail_port)
+            mail_server.ehlo()
+            mail_server.starttls()
+            mail_server.login(self.__mail_account_user_mail, self.__mail_account_password)
+            mail_server.sendmail(self.__mail_account_user_mail, self.get_toaddrs(), self.get_mime_multipart())
+            mail_server.quit()
+            print("OK ..... !!!")
+        except :
+            print("ERROR ..... !!!")
 
     def get_toaddrs(self):
         return [self.__mail_account_to] + [self.__mail_account_cc]
@@ -56,4 +60,3 @@ class SimpleEmail:
         template = MIMEText(self.__mail_template_template, 'html')
         msg.attach(template)
         return msg.as_string()
-
