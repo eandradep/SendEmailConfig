@@ -17,7 +17,9 @@ def iniciar_migracion():
     print("PROCESS: Inicia Codigo Python")
     properties_route_file = str(sys.argv[1])
     mail_account_to = str(sys.argv[2])
-    simple_email = SimpleEmail.SimpleEmail(properties_route_file, mail_account_to)
+    user_name_report = str(sys.argv[3])
+    user_number_report = str(sys.argv[3])
+    simple_email = SimpleEmail.SimpleEmail(properties_route_file, mail_account_to, user_name_report, user_number_report)
     simple_email.send_simple_email()
 
 
