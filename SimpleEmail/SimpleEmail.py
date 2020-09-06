@@ -63,9 +63,9 @@ class SimpleEmail:
             mail_server.quit()
             print("PROCESS: OK ..... !!!")
         except Exception as inst:
-            print(type(inst))
-            print(inst.args)
-            print(inst)
+            print("PROCESS:"+str(type(inst)))
+            print("PROCESS:"+str(inst.args))
+            print("PROCESS:"+str(inst))
             print("PROCESS: ERROR ..... !!!")
 
     def get_toaddrs(self):

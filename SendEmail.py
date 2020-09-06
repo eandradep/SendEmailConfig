@@ -22,6 +22,13 @@ def send_email():
     user_date_report = str(sys.argv[5])         # fecha de reporte del Usuario
     user_detail_report = str(sys.argv[6])       # detalle de reporte del Usuario
     user_archive_report = str(sys.argv[7])       # archivo de reporte del Usuario
+    print("PROCESS: "+properties_route_file)
+    print("PROCESS: "+mail_account_to)
+    print("PROCESS: "+user_name_report)
+    print("PROCESS: "+user_number_report)
+    print("PROCESS: "+user_date_report)
+    print("PROCESS: "+user_detail_report)
+    print("PROCESS: "+user_archive_report)
     simple_email = SimpleEmail.SimpleEmail(properties_route_file,
                                            mail_account_to,
                                            user_name_report,
