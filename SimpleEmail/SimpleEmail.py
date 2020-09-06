@@ -61,7 +61,7 @@ class SimpleEmail:
             mail_server.login(self.__mail_account_user_mail, self.__mail_account_password)
             mail_server.sendmail(self.__mail_account_user_mail, self.get_toaddrs(), self.get_mime_multipart())
             mail_server.quit()
-            print("PROCESS: OK ..... !!!")
+            print("PROCESS: OK")
         except Exception as inst:
             print("PROCESS:"+str(type(inst)))
             print("PROCESS:"+str(inst.args))
