@@ -5,8 +5,9 @@
     @author Edison Andrade
     @email eandradep@est.ups.edu.ec
 """
-
+from email.mime.application import MIMEApplication
 from smtplib import SMTP
+import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -25,12 +26,20 @@ class SimpleEmail:
     __mail_template_template = ''
     __user_name_report = ''
     __user_number_report = ''
+    __user_date_report = ''
+    __user_detail_report = ''
+    __user_archive_report = ''
 
-    def __init__(self, file_location, mail_account_to, user_name_report, user_number_report):
+    def __init__(self, file_location, mail_account_to, user_name_report,
+                 user_number_report, user_date_report,
+                 user_detail_report, user_archive_report):
         self.read_properties(file_location)
         self.__mail_account_to = mail_account_to
         self.__user_name_report = user_name_report
         self.__user_number_report = user_number_report
+        self.__user_date_report = user_date_report
+        self.__user_detail_report = user_detail_report
+        self.__user_archive_report = user_archive_report
 
     def read_properties(self, file_location):
         properties = Properties()
@@ -52,9 +61,12 @@ class SimpleEmail:
             mail_server.login(self.__mail_account_user_mail, self.__mail_account_password)
             mail_server.sendmail(self.__mail_account_user_mail, self.get_toaddrs(), self.get_mime_multipart())
             mail_server.quit()
-            print("OK ..... !!!")
-        except:
-            print("ERROR ..... !!!")
+            print("PROCESS: OK ..... !!!")
+        except Exception as inst:
+            print(type(inst))
+            print(inst.args)
+            print(inst)
+            print("PROCESS: ERROR ..... !!!")
 
     def get_toaddrs(self):
         return [self.__mail_account_to] + [self.__mail_account_cc]
@@ -66,10 +78,18 @@ class SimpleEmail:
         msg['To'] = self.__mail_account_to
         template = MIMEText(self.replace_template_variables(), 'html')
         msg.attach(template)
+        if self.__user_archive_report != 'null':
+            with open(self.__user_archive_report, "rb") as f:
+                attach = MIMEApplication(f.read(), _subtype="pdf")
+            attach.add_header('Content-Disposition', 'attachment',
+                              filename=str('REPORT CODE: '+self.__user_number_report))
+            msg.attach(attach)
         return msg.as_string()
 
     def replace_template_variables(self):
         return self.__mail_template_template \
             .replace('<<#NombrePersona>>', self.__user_name_report) \
-            .replace(' <<#NumeroDenuncia>>', self.__user_name_report) \
-            .replace('<<#FechaEnvio>>', self.__user_name_report)
+            .replace('<<#NumeroDenuncia>>', self.__user_number_report) \
+            .replace('<<#FechaEnvio>>', self.__user_date_report) \
+            .replace('<<#detalleProceso>> ', self.__user_detail_report) \
+            .replace('<<#FechaActual>>', time.strftime("%d/%m/%y")+' '+time.strftime("%H:%M:%S"))
