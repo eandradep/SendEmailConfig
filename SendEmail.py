@@ -15,13 +15,13 @@ def send_email():
     cual es ingresado mediante la ejecución del script mediante linea de comandos.
     """
     print("PROCESS: Inicia Codigo Python")
-    properties_route_file = str(sys.argv[1])    # Direccion del Archivo de propiedades
-    mail_account_to = str(sys.argv[2])          # cuenta a la que se va a enviar el correo Electronico
-    user_name_report = str(sys.argv[3])         # nombre del Usuario que va a recibir el mensaje
-    user_number_report = str(sys.argv[4])       # numero de reporte del Usuario
-    user_date_report = str(sys.argv[5])         # fecha de reporte del Usuario
-    user_detail_report = str(sys.argv[6])       # detalle de reporte del Usuario
-    user_archive_report = str(sys.argv[7])       # archivo de reporte del Usuario
+    properties_route_file = str(sys.argv[1]).replace("'", "")   # Direccion del Archivo de propiedades
+    mail_account_to = str(sys.argv[2]).replace("'", "")     # cuenta a la que se va a enviar el correo Electronico
+    user_name_report = str(sys.argv[3]).replace("'", "")       # nombre del Usuario que va a recibir el mensaje
+    user_number_report = str(sys.argv[4]).replace("'", "")       # numero de reporte del Usuario
+    user_date_report = str(sys.argv[5]).replace("'", "")         # fecha de reporte del Usuario
+    user_detail_report = str(sys.argv[6]).replace("'", "")       # detalle de reporte del Usuario
+    user_archive_report = str(sys.argv[7]).replace("'", "")       # archivo de reporte del Usuario
     print("PROCESS: "+properties_route_file)
     print("PROCESS: "+mail_account_to)
     print("PROCESS: "+user_name_report)
