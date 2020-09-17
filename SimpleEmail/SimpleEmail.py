@@ -82,7 +82,7 @@ class SimpleEmail:
             with open(self.__user_archive_report, "rb") as f:
                 attach = MIMEApplication(f.read(), _subtype="pdf")
             attach.add_header('Content-Disposition', 'attachment',
-                              filename=str('REPORT CODE: '+self.__user_number_report))
+                              filename=str('REPORT CODE: '+self.__user_number_report)+'.pdf')
             msg.attach(attach)
         return msg.as_string()
 
