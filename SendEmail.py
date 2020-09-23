@@ -8,6 +8,7 @@
 import sys
 
 from RecoverPassword import RecoverPassword
+from RecoverPasswordWeb import RecoverPasswordWeb
 from SimpleEmail import SimpleEmail
 
 
@@ -20,18 +21,18 @@ def send_email():
     properties_route_file = str(sys.argv[2]).replace("'", "")  # Direccion del Archivo de propiedades
     mail_account_to = str(sys.argv[3]).replace("'", "")
     if str(sys.argv[1]).replace("'", "") == '1':
-        user_name_report = str(sys.argv[4]).replace("'", "")       # nombre del Usuario que va a recibir el mensaje
-        user_number_report = str(sys.argv[5]).replace("'", "")       # numero de reporte del Usuario
-        user_date_report = str(sys.argv[6]).replace("'", "")         # fecha de reporte del Usuario
-        user_detail_report = str(sys.argv[7]).replace("'", "")       # detalle de reporte del Usuario
-        user_archive_report = str(sys.argv[8]).replace("'", "")       # archivo de reporte del Usuario
-        print("PROCESS: "+properties_route_file)
-        print("PROCESS: "+mail_account_to)
-        print("PROCESS: "+user_name_report)
-        print("PROCESS: "+user_number_report)
-        print("PROCESS: "+user_date_report)
-        print("PROCESS: "+user_detail_report)
-        print("PROCESS: "+user_archive_report)
+        user_name_report = str(sys.argv[4]).replace("'", "")  # nombre del Usuario que va a recibir el mensaje
+        user_number_report = str(sys.argv[5]).replace("'", "")  # numero de reporte del Usuario
+        user_date_report = str(sys.argv[6]).replace("'", "")  # fecha de reporte del Usuario
+        user_detail_report = str(sys.argv[7]).replace("'", "")  # detalle de reporte del Usuario
+        user_archive_report = str(sys.argv[8]).replace("'", "")  # archivo de reporte del Usuario
+        print("PROCESS: " + properties_route_file)
+        print("PROCESS: " + mail_account_to)
+        print("PROCESS: " + user_name_report)
+        print("PROCESS: " + user_number_report)
+        print("PROCESS: " + user_date_report)
+        print("PROCESS: " + user_detail_report)
+        print("PROCESS: " + user_archive_report)
         simple_email = SimpleEmail.SimpleEmail(properties_route_file,
                                                mail_account_to,
                                                user_name_report,
@@ -40,7 +41,7 @@ def send_email():
                                                user_detail_report,
                                                user_archive_report)
         simple_email.send_simple_email()
-    else:
+    if str(sys.argv[1]).replace("'", "") == '2':
         user_name = str(sys.argv[4]).replace("'", "")
         user_password = str(sys.argv[5]).replace("'", "")
         is_google_user = str(sys.argv[6]).replace("'", "")
@@ -48,8 +49,12 @@ def send_email():
         recover_password = RecoverPassword.RecoverPassword(properties_route_file, mail_account_to,
                                                            user_name, user_password, is_google_user)
         recover_password.send_simple_email()
-
-
+    else:
+        mail_html_template = str(sys.argv[4]).replace("'", "")
+        recover_password_web = RecoverPasswordWeb.RecoverPasswordWeb(properties_route_file,
+                                                                     mail_account_to,
+                                                                     mail_html_template)
+        recover_password_web.send_recovery_email()
 
 
 """

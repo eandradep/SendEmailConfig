@@ -63,9 +63,9 @@ class SimpleEmail:
             mail_server.quit()
             print("PROCESS: OK")
         except Exception as inst:
-            print("PROCESS:"+str(type(inst)))
-            print("PROCESS:"+str(inst.args))
-            print("PROCESS:"+str(inst))
+            print("PROCESS:" + str(type(inst)))
+            print("PROCESS:" + str(inst.args))
+            print("PROCESS:" + str(inst))
             print("PROCESS: ERROR ..... !!!")
 
     def get_toaddrs(self):
@@ -82,7 +82,7 @@ class SimpleEmail:
             with open(self.__user_archive_report, "rb") as f:
                 attach = MIMEApplication(f.read(), _subtype="pdf")
             attach.add_header('Content-Disposition', 'attachment',
-                              filename=str('REPORT CODE: #'+self.__user_number_report.replace(" ", "")+'.pdf'))
+                              filename=str('REPORT CODE: #' + self.__user_number_report.replace(" ", "") + '.pdf'))
             msg.attach(attach)
         return msg.as_string()
 
@@ -92,4 +92,4 @@ class SimpleEmail:
             .replace('<<#NumeroDenuncia>>', self.__user_number_report) \
             .replace('<<#FechaEnvio>>', self.__user_date_report) \
             .replace('<<#detalleProceso>> ', self.__user_detail_report) \
-            .replace('<<#FechaActual>>', time.strftime("%d/%m/%y")+' '+time.strftime("%H:%M:%S"))
+            .replace('<<#FechaActual>>', time.strftime("%d/%m/%y") + ' ' + time.strftime("%H:%M:%S"))
