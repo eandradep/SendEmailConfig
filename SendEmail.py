@@ -45,11 +45,10 @@ def send_email():
         user_name = str(sys.argv[4]).replace("'", "")
         user_password = str(sys.argv[5]).replace("'", "")
         is_google_user = str(sys.argv[6]).replace("'", "")
-
         recover_password = RecoverPassword.RecoverPassword(properties_route_file, mail_account_to,
                                                            user_name, user_password, is_google_user)
         recover_password.send_simple_email()
-    else:
+    if str(sys.argv[1]).replace("'", "") == '3':
         mail_html_template = str(sys.argv[4]).replace("'", "")
         recover_password_web = RecoverPasswordWeb.RecoverPasswordWeb(properties_route_file,
                                                                      mail_account_to,
